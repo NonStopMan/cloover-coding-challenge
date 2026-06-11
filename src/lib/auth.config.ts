@@ -1,6 +1,8 @@
 import type { NextAuthConfig } from "next-auth";
 
 export const authConfig = {
+  // Use AUTH_SECRET from environment in production; fallback for local dev
+  secret: process.env.AUTH_SECRET ?? "dev-secret",
   session: { strategy: "jwt" },
   pages: {
     signIn: "/login",
