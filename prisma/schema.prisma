@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  fullName     String
+  role         Role     @default(USER)
+  quotes       Quote[]
+  createdAt    DateTime @default(now())
+}
+
+model Quote {
+  id                    String   @id @default(cuid())
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName              String
+  email                 String
+  address               String
+  monthlyConsumptionKwh Float
+  systemSizeKw          Float
+  downPayment           Float    @default(0)
+  systemPrice           Float
+  principal             Float
+  riskBand              String
+  offers                Json
+  createdAt             DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}
