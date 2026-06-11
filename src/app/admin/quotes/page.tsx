@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { formatEur } from "@/lib/pricing";
 import { AdminQuotesSearch } from "@/components/AdminQuotesSearch";
+import { QuoteResponse } from "@/lib/schemas/quote";
 
 type PageProps = {
   searchParams: Promise<{ search?: string }>;
@@ -60,7 +61,7 @@ export default async function AdminQuotesPage({ searchParams }: PageProps) {
             </tr>
           </thead>
           <tbody>
-            {quotes.map((quote) => (
+            {quotes.map((quote: any) => (
               <tr key={quote.id} className="border-b border-zinc-100">
                 <td className="px-4 py-3">
                   {quote.createdAt.toLocaleDateString("de-DE")}

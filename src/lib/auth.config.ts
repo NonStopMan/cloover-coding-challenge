@@ -26,10 +26,7 @@ export const authConfig = {
         return Response.redirect(new URL("/", request.nextUrl.origin));
       }
 
-      if (
-        (pathname === "/login" || pathname === "/register") &&
-        isLoggedIn
-      ) {
+      if ((pathname === "/login" || pathname === "/register") && isLoggedIn) {
         return Response.redirect(new URL("/", request.nextUrl.origin));
       }
 
