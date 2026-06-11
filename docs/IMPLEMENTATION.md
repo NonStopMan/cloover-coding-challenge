@@ -30,5 +30,9 @@
 - Full GreenQuote app: auth, pricing, API, UI, admin, OpenAPI, PDF, E2E
 - Build passes, unit tests pass, DB migrated + seeded
 
+**What was built:**
+- Expanded Playwright E2E suite (19 tests): auth, navigation, form validation, quotes list, admin filter
+- Shared helpers in `e2e/helpers/` and DB preflight in `e2e/global-setup.ts`
+
 **Next up:**
-- Push to GitHub and open PR
+- Push E2E changes

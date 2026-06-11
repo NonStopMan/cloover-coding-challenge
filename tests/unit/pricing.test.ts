@@ -3,6 +3,7 @@ import {
   computeMonthlyPayment,
   computePricing,
   computeRiskBand,
+  formatEur,
 } from "@/lib/pricing";
 
 describe("computeRiskBand", () => {
@@ -57,5 +58,19 @@ describe("computeMonthlyPayment", () => {
 
   it("returns zero for zero principal", () => {
     expect(computeMonthlyPayment(0, 0.069, 5)).toBe(0);
+  });
+
+  it("handles zero APR (no interest) correctly", () => {
+    // principal 1200 over 10 years -> monthly = 1200 / (10*12) = 10
+    const payment = computeMonthlyPayment(1200, 0, 10);
+    expect(payment).toBe(10);
+  });
+});
+
+describe("formatEur", () => {
+  it("formats numbers as EUR in de-DE locale", () => {
+    const formatted = formatEur(1234.56);
+    // German format uses period as thousand separator and comma for decimals
+    expect(formatted).toMatch(/1\.234,56\s*€/);
   });
 });
