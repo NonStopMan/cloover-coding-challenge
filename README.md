@@ -33,22 +33,23 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ### Seed accounts
 
-| Email | Password | Role |
-|-------|----------|------|
-| admin@test.com | Admin123! | ADMIN |
-| user@test.com | User12345! | USER |
+| Email          | Password   | Role  |
+| -------------- | ---------- | ----- |
+| admin@test.com | Admin123!  | ADMIN |
+| user@test.com  | User12345! | USER  |
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start dev server |
-| `npm run build` | Production build |
-| `npm test` | Unit tests (Vitest) |
-| `npm run test:e2e` | E2E tests (Playwright) |
-| `npm run lint` | ESLint |
-| `npm run format` | Prettier |
-| `npm run db:seed` | Seed admin + demo user |
+| Command               | Description                                              |
+| --------------------- | -------------------------------------------------------- |
+| `npm run dev`         | Start dev server                                         |
+| `npm run build`       | Production build                                         |
+| `npm test`            | Unit tests (Vitest)                                      |
+| `npm run test:e2e`    | E2E tests (Playwright) — requires `docker compose up -d` |
+| `npm run test:e2e:ui` | E2E tests with Playwright UI (Playwright UI mode)        |
+| `npm run lint`        | ESLint                                                   |
+| `npm run format`      | Prettier                                                 |
+| `npm run db:seed`     | Seed admin + demo user                                   |
 
 ## Features
 
@@ -77,12 +78,12 @@ Planning and implementation logs: [docs/PLAN.md](docs/PLAN.md), [docs/IMPLEMENTA
 
 ## Trade-offs
 
-| Decision | Why |
-|----------|-----|
-| Next.js monolith | Fastest path for ~4h scope; shared types between UI and API |
-| Auth.js Credentials | Meets required baseline; OAuth deferred |
-| JSON column for offers | Three fixed offers per quote; avoids extra join table |
-| Prisma 7 + pg adapter | Latest Prisma; requires explicit PostgreSQL adapter |
+| Decision               | Why                                                         |
+| ---------------------- | ----------------------------------------------------------- |
+| Next.js monolith       | Fastest path for ~4h scope; shared types between UI and API |
+| Auth.js Credentials    | Meets required baseline; OAuth deferred                     |
+| JSON column for offers | Three fixed offers per quote; avoids extra join table       |
+| Prisma 7 + pg adapter  | Latest Prisma; requires explicit PostgreSQL adapter         |
 
 ## What I'd do next
 
