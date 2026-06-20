@@ -36,7 +36,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: "npm"
 
       - name: Install dependencies
@@ -61,10 +61,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Check environment variables
-        run: |
-          echo "DATABASE_URL=$DATABASE_URL"
-          echo "AUTH_SECRET=$AUTH_SECRET"
-          echo "AUTH_URL=$AUTH_URL"
+        run: printenv
 
       - name: Run E2E tests
         run: npm run test:e2e
