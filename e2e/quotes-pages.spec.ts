@@ -50,9 +50,7 @@ test.describe("Admin quotes page", () => {
     await expect(page).toHaveURL("/");
   });
 
-  test.skip("admin can view all quotes and filter by email", async ({
-    page,
-  }) => {
+  test("admin can view all quotes and filter by email", async ({ page }) => {
     await login(page, TEST_USER);
     await submitQuoteForm(page, {
       ...sampleQuote,

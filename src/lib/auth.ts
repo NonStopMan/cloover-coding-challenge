@@ -17,32 +17,40 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
       authorize: async (credentials) => {
         const parsed = loginSchema.safeParse(credentials);
-        logger.info(
-          `Login validation
-          ${JSON.stringify({
-            credentials: { credentials: JSON.stringify(credentials) },
-            success: parsed.success,
-            errors: parsed.error?.format(),
-          })}`,
-        );
-        if (!parsed.success) return null;
+        if (!parsed.success) {
+          logger.warn(
+            {
+              reason: "validation_failed",
+              errors: parsed.error?.format(),
+              input: { email: credentials?.email },
+            },
+            "Unsuccessful login attempt",
+          );
+          return null;
+        }
 
         const user = await db.user.findUnique({
           where: { email: parsed.data.email.toLowerCase() },
         });
-        logger.info(
-          `User lookup for email ${parsed.data.email}: ${user ? "found" : "not found"}`,
-        );
-        if (!user) return null;
+        if (!user) {
+          logger.warn(
+            { reason: "user_not_found", email: parsed.data.email },
+            "Unsuccessful login attempt",
+          );
+          return null;
+        }
 
         const valid = await bcrypt.compare(
           parsed.data.password,
           user.passwordHash,
         );
-        logger.info(
-          `Password validation for email ${parsed.data.email}: ${valid ? "valid" : "invalid"}`,
-        );
-        if (!valid) return null;
+        if (!valid) {
+          logger.warn(
+            { reason: "invalid_password", email: parsed.data.email },
+            "Unsuccessful login attempt",
+          );
+          return null;
+        }
 
         return {
           id: user.id,

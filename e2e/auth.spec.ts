@@ -50,7 +50,7 @@ test.describe("Authentication", () => {
     await expect(page.getByLabel("Email")).toHaveValue(email);
   });
 
-  test.skip("logs out and returns to login", async ({ page }) => {
+  test("logs out and returns to login", async ({ page }) => {
     await login(page, TEST_USER);
     await logout(page);
 
