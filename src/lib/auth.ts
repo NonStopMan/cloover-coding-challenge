@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { authConfig } from "@/lib/auth.config";
 import { db } from "@/lib/db";
 import { loginSchema } from "@/lib/schemas/quote";
+import { logger } from "./logger";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -16,16 +17,30 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
       authorize: async (credentials) => {
         const parsed = loginSchema.safeParse(credentials);
+        logger.info(
+          `Login validation
+          ${JSON.stringify({
+            credentials: { credentials: JSON.stringify(credentials) },
+            success: parsed.success,
+            errors: parsed.error?.format(),
+          })}`,
+        );
         if (!parsed.success) return null;
 
         const user = await db.user.findUnique({
           where: { email: parsed.data.email.toLowerCase() },
         });
+        logger.info(
+          `User lookup for email ${parsed.data.email}: ${user ? "found" : "not found"}`,
+        );
         if (!user) return null;
 
         const valid = await bcrypt.compare(
           parsed.data.password,
           user.passwordHash,
+        );
+        logger.info(
+          `Password validation for email ${parsed.data.email}: ${valid ? "valid" : "invalid"}`,
         );
         if (!valid) return null;
 
