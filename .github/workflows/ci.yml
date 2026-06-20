@@ -29,6 +29,7 @@ jobs:
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
       NEXTAUTH_URL: http://127.0.0.1:3000
       AUTH_SECRET: dev-secret
+      LOG_LEVEL: debug
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
