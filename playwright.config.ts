@@ -16,8 +16,12 @@ export default defineConfig({
   webServer: {
     // Ensure migrations and seed run before starting the dev server so the
     // Playwright-launched server matches a manually started server environment.
-    command: "npm run dev",
+    command:
+      "bash -lc 'set -a && [ -f .env ] && . .env || true && set +a && npm run dev'",
+
+    // "bash -lc 'set -a && [ -f .env ] && . .env || true && set +a && npx prisma migrate deploy || true && npm run db:seed || true && npm run dev'",
     url: "http://localhost:3000/api/health",
+
     reuseExistingServer: !process.env.CI,
     env: {
       DATABASE_URL:
