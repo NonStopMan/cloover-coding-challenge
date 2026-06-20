@@ -1,8 +1,16 @@
 import { test, expect } from "@playwright/test";
-import { login, logout, registerAndLogin, TEST_USER, TEST_ADMIN } from "./helpers/auth";
+import {
+  login,
+  logout,
+  registerAndLogin,
+  TEST_USER,
+  TEST_ADMIN,
+} from "./helpers/auth";
 
 test.describe("Authentication", () => {
-  test("redirects unauthenticated users from home to login", async ({ page }) => {
+  test("redirects unauthenticated users from home to login", async ({
+    page,
+  }) => {
     await page.goto("/");
     await expect(page).toHaveURL(/\/login/);
   });
@@ -36,7 +44,9 @@ test.describe("Authentication", () => {
       password: "Password123!",
     });
 
-    await expect(page.getByRole("heading", { name: "Solar pre-qualification" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Solar pre-qualification" }),
+    ).toBeVisible();
     await expect(page.getByLabel("Email")).toHaveValue(email);
   });
 
@@ -49,7 +59,9 @@ test.describe("Authentication", () => {
     await expect(page).toHaveURL(/\/login/);
   });
 
-  test("redirects authenticated users away from login page", async ({ page }) => {
+  test("redirects authenticated users away from login page", async ({
+    page,
+  }) => {
     await login(page, TEST_USER);
     await page.goto("/login");
     await expect(page).toHaveURL("/");

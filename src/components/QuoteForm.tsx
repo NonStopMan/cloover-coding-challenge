@@ -73,7 +73,8 @@ export function QuoteForm({ defaultFullName, defaultEmail }: QuoteFormProps) {
           name="fullName"
           defaultValue={defaultFullName}
           required
-          className="w-full rounded-md border border-zinc-300 px-3 py-2"
+          readOnly
+          className="w-full rounded-md border border-zinc-300 px-3 py-2  text-zinc-600  bg-zinc-50"
           aria-invalid={!!errors.fullName}
           aria-describedby={errors.fullName ? "fullName-error" : undefined}
         />
@@ -138,7 +139,10 @@ export function QuoteForm({ defaultFullName, defaultEmail }: QuoteFormProps) {
           )}
         </div>
         <div>
-          <label htmlFor="systemSizeKw" className="mb-1 block text-sm font-medium">
+          <label
+            htmlFor="systemSizeKw"
+            className="mb-1 block text-sm font-medium"
+          >
             System size (kW)
           </label>
           <input

@@ -93,6 +93,6 @@ Living plan for the Cloover coding challenge. Updated as requirements are comple
 
 ## Open items
 
-- [ ] CI pipeline (GitHub Actions)
+- [x] CI pipeline (GitHub Actions)
 - [ ] Email verification
 - [ ] Rate limiting on auth endpoints

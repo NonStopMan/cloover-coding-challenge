@@ -9,13 +9,16 @@ export type QuoteFormData = {
 };
 
 export async function submitQuoteForm(page: Page, data: QuoteFormData) {
-  await page.getByLabel("Full name").fill(data.fullName);
   await page.getByLabel("Address").fill(data.address);
-  await page.getByLabel("Monthly consumption (kWh)").fill(data.monthlyConsumptionKwh);
+  await page
+    .getByLabel("Monthly consumption (kWh)")
+    .fill(data.monthlyConsumptionKwh);
   await page.getByLabel("System size (kW)").fill(data.systemSizeKw);
 
   if (data.downPayment !== undefined) {
-    await page.getByLabel("Down payment (EUR, optional)").fill(data.downPayment);
+    await page
+      .getByLabel("Down payment (EUR, optional)")
+      .fill(data.downPayment);
   }
 
   await page.getByRole("button", { name: "Get pre-qualification" }).click();

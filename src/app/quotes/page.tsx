@@ -41,7 +41,7 @@ export default async function QuotesPage() {
                 </td>
               </tr>
             ) : (
-              quotes.map((quote) => (
+              quotes.map((quote: any) => (
                 <tr key={quote.id} className="border-b border-zinc-100">
                   <td className="px-4 py-3">
                     {quote.createdAt.toLocaleDateString("de-DE")}

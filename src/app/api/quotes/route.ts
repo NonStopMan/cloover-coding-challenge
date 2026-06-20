@@ -3,11 +3,7 @@ import { requireAuth, requireAdmin } from "@/lib/auth";
 import { logError, logRequest } from "@/lib/logger";
 import { computePricing } from "@/lib/pricing";
 import { quoteInputSchema } from "@/lib/schemas/quote";
-import {
-  errorResponse,
-  jsonResponse,
-  serializeQuote,
-} from "@/lib/api-utils";
+import { errorResponse, jsonResponse, serializeQuote } from "@/lib/api-utils";
 
 export async function POST(request: Request) {
   const started = Date.now();
@@ -29,7 +25,10 @@ export async function POST(request: Request) {
         status: 400,
         durationMs: Date.now() - started,
       });
-      return errorResponse(parsed.error.issues[0]?.message ?? "Invalid input", 400);
+      return errorResponse(
+        parsed.error.issues[0]?.message ?? "Invalid input",
+        400,
+      );
     }
 
     const downPayment = parsed.data.downPayment ?? 0;
@@ -110,7 +109,7 @@ export async function GET(request: Request) {
       });
 
       return jsonResponse({
-        quotes: quotes.map((quote) => ({
+        quotes: quotes.map((quote: any) => ({
           ...serializeQuote(quote),
           user: {
             fullName: quote.user.fullName,
@@ -134,7 +133,7 @@ export async function GET(request: Request) {
     });
 
     return jsonResponse({
-      quotes: quotes.map((quote) => serializeQuote(quote)),
+      quotes: quotes.map((quote: any) => serializeQuote(quote)),
     });
   } catch (error) {
     logError(error, { path });

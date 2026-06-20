@@ -1,6 +1,8 @@
 import type { NextAuthConfig } from "next-auth";
 
 export const authConfig = {
+  // Use AUTH_SECRET from environment in production; fallback for local dev
+  secret: process.env.AUTH_SECRET ?? "dev-secret",
   session: { strategy: "jwt" },
   pages: {
     signIn: "/login",
@@ -24,10 +26,7 @@ export const authConfig = {
         return Response.redirect(new URL("/", request.nextUrl.origin));
       }
 
-      if (
-        (pathname === "/login" || pathname === "/register") &&
-        isLoggedIn
-      ) {
+      if ((pathname === "/login" || pathname === "/register") && isLoggedIn) {
         return Response.redirect(new URL("/", request.nextUrl.origin));
       }
 

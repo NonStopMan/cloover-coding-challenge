@@ -14,6 +14,10 @@ export default async function globalSetup() {
   try {
     await pool.query("SELECT 1");
   } catch {
+    console.error(
+      "Failed to connect to PostgreSQL with DATABASE_URL:",
+      databaseUrl,
+    );
     throw new Error(
       "Cannot connect to PostgreSQL. Start the database with: docker compose up -d",
     );

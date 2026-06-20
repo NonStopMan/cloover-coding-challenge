@@ -21,12 +21,16 @@ export async function login(
   await page.getByLabel("Email").fill(credentials.email);
   await page.getByLabel("Password").fill(credentials.password);
   await page.getByRole("button", { name: "Sign in" }).click();
-  await expect(page.getByRole("heading", { name: "Solar pre-qualification" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Solar pre-qualification" }),
+  ).toBeVisible();
 }
 
 export async function logout(page: Page) {
+  console.log("Current URL:", page.url());
   await page.getByRole("button", { name: "Sign out" }).click();
-  await page.waitForURL("/login");
+  console.log("Current URL:", page.url());
+  await page.waitForURL("**/login");
 }
 
 export async function registerAndLogin(
@@ -38,5 +42,7 @@ export async function registerAndLogin(
   await page.getByLabel("Email").fill(data.email);
   await page.getByLabel("Password").fill(data.password);
   await page.getByRole("button", { name: "Register and sign in" }).click();
-  await expect(page.getByRole("heading", { name: "Solar pre-qualification" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Solar pre-qualification" }),
+  ).toBeVisible();
 }
