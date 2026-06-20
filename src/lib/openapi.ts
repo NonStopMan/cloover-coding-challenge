@@ -124,6 +124,6 @@ export function generateOpenApiDocument() {
       version: "1.0.0",
       description: "Solar financing pre-qualification API",
     },
-    servers: [{ url: process.env.AUTH_URL ?? "http://localhost:3000" }],
+    servers: [{ url: process.env.NEXTAUTH_URL ?? "http://localhost:3000" }],
   });
 }
