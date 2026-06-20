@@ -60,5 +60,11 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+      - name: Check environment variables
+        run: |
+          echo "DATABASE_URL=$DATABASE_URL"
+          echo "AUTH_SECRET=$AUTH_SECRET"
+          echo "AUTH_URL=$AUTH_URL"
+
       - name: Run E2E tests
         run: npm run test:e2e
