@@ -28,6 +28,8 @@ async function main() {
       role: Role.USER,
     },
   });
+  const users = await db.user.findMany();
+  console.log("Seeded users:", JSON.stringify(users));
 
   console.log(
     "Seed complete: admin@test.com / Admin123!, user@test.com / User12345!",

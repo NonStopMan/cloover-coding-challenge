@@ -8,6 +8,10 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function createPrismaClient() {
+  console.log(
+    "Creating new Prisma Client instance... database URL:",
+    process.env.DATABASE_URL,
+  );
   const pool =
     globalForPrisma.pool ??
     new Pool({ connectionString: process.env.DATABASE_URL });
