@@ -10,11 +10,16 @@ test.describe("Navigation", () => {
 
     await page.getByRole("link", { name: "New quote" }).click();
     await expect(page).toHaveURL("/");
-    await expect(page.getByRole("heading", { name: "Solar pre-qualification" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Solar pre-qualification" }),
+    ).toBeVisible();
 
     await page.getByRole("link", { name: "API docs" }).click();
+    console.log("Current URL after clicking API docs link:", page.url());
     await expect(page).toHaveURL("/api-docs");
-    await expect(page.getByRole("heading", { name: "API documentation" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "API documentation" }),
+    ).toBeVisible();
   });
 
   test("GreenQuote logo returns to home", async ({ page }) => {

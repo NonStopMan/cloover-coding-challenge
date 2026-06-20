@@ -59,7 +59,7 @@ test.describe("Admin quotes page", () => {
     await expect(page).toHaveURL(/\/quotes\/.+/);
 
     await page.getByRole("button", { name: "Sign out" }).click();
-    await page.waitForURL("/login");
+    await page.waitForURL("**/login");
 
     await login(page, TEST_ADMIN);
     await page.getByRole("link", { name: "Admin" }).click();
